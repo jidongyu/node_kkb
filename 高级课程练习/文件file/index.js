@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-17 11:45:24
- * @LastEditTime: 2021-05-17 12:35:32
+ * @LastEditTime: 2021-05-19 00:44:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \node\node_test\node_kkb\高级课程练习\文件file\index.js
@@ -41,13 +41,13 @@ const fs = require("fs");
           要想转换为正常字符串，只需要data.toString()就行
    }) 
  */
-fs.readFile("write.txt", (error, data) => {
-    if (error) {
-        console.log("error：", error);
-    }
-    const res = data.toString();
-    console.log(res);
-})
+// fs.readFile("write.txt", (error, data) => {
+//     if (error) {
+//         console.log("error：", error);
+//     }
+//     const res = data.toString();
+//     console.log(res);
+// })
 
 /*  
     fs.wirteSync(文件名);
@@ -56,3 +56,51 @@ fs.readFile("write.txt", (error, data) => {
     const res = fs.readSync("write.txt");
     console.log(res.toString());
  */
+// 删除文件
+// fs.unlink("write.js", (error) => {
+//     if (error) {
+//         console.log(error);
+//     }
+//     console.log("删除成功！")
+// })
+
+// 创建文件夹
+// fs.mkdir("22", (error) => {
+//     if (error) {
+//         console.log(error);
+//     }
+//     console.log("文件夹创建成功!");
+// })
+
+// 读取文件夹
+// fs.readdir("11", (err, data) => {
+//     if (err) {
+//         console.log(err);
+//     }
+//     console.log(data);
+// })
+
+// 删除文件夹
+// fs.rmdir("22", (err) => {
+//     if (err) {
+//         console.log(err);
+//     }
+//     console.log("删除目录成功！");
+// })
+
+// 判断文件夹是否存在
+// fs.exists("11", (exists) => {
+
+//     console.log(exists);
+// })
+
+// 获取文件或者文件夹信息
+fs.stat('write.txt', (err, stat) => {
+    if (err) {
+        console.log(err);
+    }
+    // console.log(stat);
+    // let res = stat.isFile();
+    let res = stat.isDirectory();
+    console.log(res);
+})
