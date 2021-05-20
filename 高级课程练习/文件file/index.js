@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-05-17 11:45:24
- * @LastEditTime: 2021-05-19 00:44:51
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-05-19 21:53:45
+ * @LastEditors: jidongyu
  * @Description: In User Settings Edit
  * @FilePath: \node\node_test\node_kkb\高级课程练习\文件file\index.js
  */
@@ -95,12 +95,31 @@ const fs = require("fs");
 // })
 
 // 获取文件或者文件夹信息
-fs.stat('write.txt', (err, stat) => {
-    if (err) {
-        console.log(err);
+// fs.stat('write.txt', (err, stat) => {
+//     if (err) {
+//         console.log(err);
+//     }
+//     // console.log(stat);
+//     // let res = stat.isFile();
+//     let res = stat.isDirectory();
+//     console.log(res);
+// })
+
+// 删除非空文件夹
+let deleteDir = (path) => {
+    let stat = fs.statSync(path)
+    let isFile = stat.isFile();
+    if(isFile){
+        fs.unlinkSync(path);
+    }else{
+        let files = fs.readdirSync(path);
+        if(files.length > 0){
+            files.forEach( element => {
+                deleteDir(path+'/'+element);
+            });
+        }
+        fs.rmdirSync(path);
     }
-    // console.log(stat);
-    // let res = stat.isFile();
-    let res = stat.isDirectory();
-    console.log(res);
-})
+}
+
+deleteDir("22");
