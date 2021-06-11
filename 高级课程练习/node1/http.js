@@ -2,17 +2,19 @@
  * @Description: 
  * @Author: jidongyu
  * @Date: 2021-06-02 19:57:43
- * @LastEditTime: 2021-06-02 22:22:12
+ * @LastEditTime: 2021-06-09 22:47:38
  * @LastEditors: jidongyu
  * @Reference: 
  */
 const http = require("http");
 const url = require('url');
 const fs = require("fs");
+const path = require("path");
+const mime = require("./mime.json");
 
 const server = http.createServer((req, res) => {
-    // res.setHeader("content-type","text/html;charset=utf-8");
-    res.writeHead(300, { "content-type": "text/html;charset=utf-8" });
+    res.setHeader("content-type","text/html;charset=utf-8");
+    // res.writeHead(300, { "content-type": "text/html;charset=utf-8" });
     let urlObj = url.parse(req.url);
     console.log("urlObj", urlObj);
     if (urlObj.pathname == '/' || urlObj.pathname == '/index') {
@@ -27,6 +29,8 @@ const server = http.createServer((req, res) => {
         streamRead.pipe(res);
     } else {
         if (urlObj.pathname !== '/favicon.ico') {
+            const ext =  path.extname(urlObj.pathname);
+            res.setHeader("content-type",mime[ext]);
             let streamRead = fs.createReadStream('.'+urlObj.pathname);
             streamRead.pipe(res);
         }
